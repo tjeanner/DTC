@@ -29,17 +29,15 @@ export default class NameChooser extends React.Component {
 		return(
 			<View style={{ flex: 1, width:300, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
 				<Input
-					onSubmitEditing={() => {this.manageData();}}
 					autoFocus={true}
 					ref={input => { this.textInput = input }}
 					textAlign={'center'}
 					value={this.state.name}
-					onChangeText={(text) => {this.setState({name: text && text.length ? text.trim() : ''});}}
+					onChangeText={(text) => {this.setState({name: text ? text : ''});}}
 					label="Name"
 					maxLength={20}
 					placeholderTextColor="#bbbbbb"
 					keyboardAppearance="dark"
-					returnKeyType="done"
 					textContentType="none"
 				/>
 				<View style={{marginTop:60, marginBottom:40}}>
