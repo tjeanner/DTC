@@ -108,6 +108,9 @@ export default class GameScreen extends React.Component {
     if(this.state.editingScore){
       this.setState({editingScore: false});
     }
+    else if(this.state.isChoosingNames && this.state.currentName > 0){
+      this.setState(prevState => ({currentName: prevState.currentName - 1}));
+    }
     else{
       Alert.alert(
         'Warning',
