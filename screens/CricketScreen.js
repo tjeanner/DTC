@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   Alert,
   Vibration,
-  FlatList,
   BackHandler,
 } from 'react-native';
 
@@ -16,7 +15,7 @@ import MyButton from '../components/MyButton';
 import NameChooser from '../components/NameChooser';
 import CurrentPlayer from '../components/CurrentPlayer';
 import CricketScores from '../components/CricketScores';
-import { sortScoresAsc, sortScoresDes, compute1Dart, compute3Darts } from '../helpers/PointsManagers';
+import { sortScoresDes } from '../helpers/PointsManagers';
 
 class PointSelector extends React.Component {
   constructor(props){
@@ -26,6 +25,7 @@ class PointSelector extends React.Component {
   }
 
   createData(){
+    Vibration.vibrate(100);
     var dart = {dart:this.state.dart, double: this.state.double, triple: this.state.triple};
     this.props.manageScoresCallBack(dart);
     this.setState({dart: 0, double: false, triple: false});
@@ -33,7 +33,6 @@ class PointSelector extends React.Component {
 
 
   render(){
-  const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25];
   return(
     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
     <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -42,23 +41,24 @@ class PointSelector extends React.Component {
         style={{ height: 50, width: 150, marginTop:100 }}
         onValueChange={(itemValue, itemIndex) => this.setState(prevState => ({dart: itemValue, triple: prevState.triple && itemValue == 25 ? false : prevState.triple}))}
       >
-      {nums.map(function(num){
-        return <Picker.Item label={num.toString()} value={num} key={num} />;
+        <Picker.Item label="0" value={0} key="0" />
+      {this.props.nums.map(function(num){
+        return <Picker.Item label={num.key} value={num.value} key={num.key} />;
       })}
       </Picker>
             <CheckBox
               title='Double'
               onPress={() => {this.setState(prevState => ({double:!prevState.double, triple:!prevState.double ? false : !prevState.double}));}}
-              checked={this.state.double ? true : false}
+              checked={this.state.double}
             />
             <CheckBox
               title='Triple'
               onPress={() => {this.setState(prevState => ({triple:!prevState.triple && this.state.dart == 25 ? false :  !prevState.triple, double:!prevState.triple ? false : !prevState.triple}));}}
-              checked={this.state.triple ? true : false}
+              checked={this.state.triple}
             />
     </View>
     <View style={{flex: 10, }}>
-      <MyButton title="Proceed" onPress={() => {this.createData();Vibration.vibrate(100);}} disabled={this.props.disabled}/>
+      <MyButton title="Proceed" onPress={() => {this.createData();}} disabled={this.props.disabled}/>
     </View>
     </View>
   );
@@ -140,7 +140,7 @@ export default class GameScreen extends React.Component {
       numbers[i] = {key: '25', value: 25};
       numbers.sort(function(a, b){return a.value - b.value})
     }
-    else if(this.props.route.params.game == 'Low Pitch'){
+    else if(this.props.route.params.lowPitch){
       numbers = [{key: '1', value: 1}, {key: '2', value: 2}, {key: '3', value: 3}, {key: '4', value: 4}, {key: '5', value: 5}, {key: '6', value: 6}, {key: '25', value: 25}];
     }
     else{
@@ -158,7 +158,11 @@ export default class GameScreen extends React.Component {
   nameCallback(name, player){
     var data = this.state.data;
     data[player].name = name;
-    this.setState(prevState => ({data: data, currentName: prevState.currentName + 1}));
+    this.setState(prevState => ({
+      data: data,
+      currentName: prevState.currentName + 1,
+      isChoosingNames: prevState.currentName + 1 == this.props.route.params.nbPlayers ? false : prevState.isChoosingNames
+    }));
   }
 
   manageData(){
@@ -207,7 +211,7 @@ export default class GameScreen extends React.Component {
       else if (game == 'Cut Throat' && nbMarks > 3 && data.find(x => x.player == currentPlayer).checkmarks[index] < 4){
         i = 0;
         while(i < nbPlayers){
-          if(i != currentPlayer){
+          if(i != currentPlayer && data.find(x => x.player == i).checkmarks[index] < 3){
             data.find(x => x.player == i).score = data.find(x => x.player == i).score + dart.dart * (nbMarks - 3);
           }
           i++;
@@ -220,7 +224,10 @@ export default class GameScreen extends React.Component {
           data.find(x => x.player == currentPlayer).checkmarks[4] >= 3 &&
           data.find(x => x.player == currentPlayer).checkmarks[5] >= 3 &&
           data.find(x => x.player == currentPlayer).checkmarks[6] >= 3){
-        this.setState({data:data, endOfGame: true, winner: currentPlayer});
+        if(game == 'No Score' || game == 'Killer' || game == 'Standard' && sortScoresDes(data)[0].player == currentPlayer ||
+          game == 'Cut Throat' && sortScoresAsc(data)[0].player == currentPlayer ){
+          this.setState({data:data, endOfGame: true, winner: currentPlayer});
+        }
       }
     }
     //data = sortScoresDes(data);
@@ -279,8 +286,8 @@ export default class GameScreen extends React.Component {
     }
     return(
       <View style={{flex: 1, backgroundColor:'#457b9d'}}>
-      <View style={{ flex: 4, height:500,flexDirection:'column', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-        <View style={{ flex: 2, height:500, marginTop:30,  flexDirection:'column', alignItems: 'flex-end', justifyContent: 'space-between'}}>
+      <View style={{flex: 4, height:500,flexDirection:'column', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+        <View style={{flex: 7, height:500, marginTop:30,  flexDirection:'column', alignItems: 'flex-end', justifyContent: 'space-between'}}>
           <CricketScores numbers={this.state.numbers} data={this.state.data}/>
         </View>
           <Text style={{fontSize:24}}>Turn : {((this.state.turn + 1).toString())}</Text>
@@ -290,10 +297,12 @@ export default class GameScreen extends React.Component {
             <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score.toString()});}}/>
           </View>
       </View>
-      <View style={{ flex: 2, alignItems: 'center', justifyContent: 'flex-end', marginBottom:1}}>
-      <PointSelector manageScoresCallBack={this.manageScoresCallBack} disabled={this.state.hasProceed && this.state.currentDart == 0}/>
+      <View style={{flex: 2, alignItems: 'center', justifyContent: 'flex-end'}}>
+      <PointSelector manageScoresCallBack={this.manageScoresCallBack} disabled={this.state.hasProceed && this.state.currentDart == 0}
+        nums={this.state.numbers}
+      />
       </View>
-      <View style={{ flex: 0.8, alignItems: 'center', justifyContent: 'flex-end', marginBottom:1}}>
+      <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
         <MyButton title="Next" 
           disabled={!this.state.hasProceed}
           onPress={() => {
