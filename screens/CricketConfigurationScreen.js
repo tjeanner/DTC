@@ -24,6 +24,7 @@ export default class CricketConfigurationScreen extends React.Component {
     var games = ['Standard', 'No Score', 'Cut Throat', 'Killer'];
     return (
       <View style={{flex: 1, alignItems: "center", justifyContent:'flex-start', backgroundColor:'#1d3557'}}>
+        <View style={{ flex: 1 }}>
           <Picker
             selectedValue={this.state.game}
             style={{ height: 50, width: 150, color:'white'}}
@@ -33,7 +34,8 @@ export default class CricketConfigurationScreen extends React.Component {
               return <Picker.Item label={num.toString()} value={num} key={num} />;
             })}
           </Picker>
-          <View style={{ width:170 }}>
+        </View>
+          <View style={{ flex: 1, width:170 }}>
             <Input
               selectTextOnFocus={true}
               inputStyle={{color:'white'}}
@@ -51,6 +53,7 @@ export default class CricketConfigurationScreen extends React.Component {
               textContentType="none"
             />
           </View>
+        <View style={{ flex: 1 }}>
           <CheckBox
             title='Low Pitch'
             onPress={() => {this.setState(prevState => ({
@@ -58,6 +61,8 @@ export default class CricketConfigurationScreen extends React.Component {
               lowPitch: !prevState.lowPitch}));}}
             checked={this.state.lowPitch}
           />
+        </View>
+        <View style={{ flex: 1 }}>
           <CheckBox
             title='Random Numbers'
             onPress={() => {this.setState(prevState => ({
@@ -65,12 +70,15 @@ export default class CricketConfigurationScreen extends React.Component {
               lowPitch: prevState.lowPitch ? false : prevState.lowPitch}));}}
             checked={this.state.randomNumbers}
           />
+        </View>
+        <View style={{ flex: 1 }}>
           <CheckBox
             title='Choose players names'
             onPress={() => {this.setState(prevState => ({ownNames:!prevState.ownNames}));}}
             checked={this.state.ownNames ? true : false}
           />
-        <View style={{ alignItems: 'center', justifyContent: 'flex-end', marginBottom:40 }}>
+        </View>
+        <View style={{ flex: 1 }}>
           <MyButton title="Start"
             disabled={this.state.nbPlayers == ''}
             onPress={() => this.props.navigation.navigate('Cricket', {
