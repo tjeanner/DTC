@@ -24,12 +24,7 @@ export default class GameConfigurationScreen extends React.Component {
 
   render(){
     return (
-      <View style={{flex: 1, backgroundColor:'#1d3557'}}>
-      <View style={{flex: 1, paddingTop: 40, alignItems: "center", justifyContent:'flex-start'}}>
-    </View>
-        <View style={{ flex: 8, alignItems: 'center', justifyContent: 'space-between', marginTop:80 }}>
-          <View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-          <View style={{ width:170, flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+      <View style={{flex: 1, backgroundColor:'#1d3557', justifyContent: 'space-around', alignItems: 'center'}}>
             <Input
               inputStyle={{color:'white'}}
               textAlign={'center'}
@@ -44,13 +39,11 @@ export default class GameConfigurationScreen extends React.Component {
               returnKeyType="done"
               textContentType="none"
             />
-          </View>
             <CheckBox
               title='Choose players names'
               onPress={() => {this.setState(prevState => ({ownNames:!prevState.ownNames}));}}
               checked={this.state.ownNames ? true : false}
             />
-          </View>
           {/*<View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
                       <CheckBox
                         title='Ultimate'
@@ -58,7 +51,6 @@ export default class GameConfigurationScreen extends React.Component {
                         checked={this.state.ultimate ? true : false}
                       />
                     </View>*/}
-          <View style={{ alignItems: 'center', justifyContent: 'flex-end', marginBottom:40 }}>
             <MyButton title="Start"
               disabled={this.state.nbPlayers == '' || (this.state.game == 'custom' && this.state.customGame == '')}
               onPress={() => this.props.navigation.navigate('Halve It', {
@@ -67,8 +59,6 @@ export default class GameConfigurationScreen extends React.Component {
                 ownNames: this.state.ownNames,
               })}
             />
-          </View>
-        </View>
       </View>
     );
   }
