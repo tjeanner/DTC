@@ -31,8 +31,10 @@ export default class GameConfigurationScreen extends React.Component {
   render(){
     var games = ['301', '501', '601', '701', '801', '901', 'custom'];
     return (
-      <View style={{flex: 1, backgroundColor:'#1d3557'}}>
-      <View style={{flex: 1, paddingTop: 40, alignItems: "center", justifyContent:'flex-start'}}>
+      <View style={{flex: 1, alignItems: "center", justifyContent:'flex-start', backgroundColor:'#1d3557'}}>
+        <View style={{ flex: 1, flexDirection: 'row', alignItems:'center'}}>
+        <Text style={{fontSize: 20, color: 'white'}}>How many points?
+        </Text>
       <Picker
         selectedValue={this.state.game}
         style={{ height: 50, width: 150, color:'white'}}
@@ -42,7 +44,8 @@ export default class GameConfigurationScreen extends React.Component {
         return <Picker.Item label={num.toString()} value={num} key={num} />;
       })}
       </Picker>
-      <View style={{height: this.state.game != 'custom' ? 0 : 150, overflow:'hidden'}}>
+          </View>
+      <View style={{flex: 1, opacity: this.state.game != 'custom' ? 0 : 1}}>
             <Input
               inputStyle={{color:'white'}}
               disabled={this.state.game != 'custom'}
@@ -58,17 +61,14 @@ export default class GameConfigurationScreen extends React.Component {
               textContentType="none"
             />
       </View>
-    </View>
-        <View style={{ flex: 8, alignItems: 'center', justifyContent: 'space-between', marginTop:80 }}>
-          <View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
-          <View style={{ width:170, flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <View style={{ flex: 1, width:170 }}>
             <Input
               inputStyle={{color:'white'}}
               textAlign={'center'}
               value={this.state.nbPlayers.toString()}
               onChangeText={(text) => {this.setState({nbPlayers: text && text.length && text.match(/^-{0,1}\d+$/) && parseInt(text) != 0 ? parseInt(text) : ''});
               }}
-              label="Nombre de Joueurs"
+              label="Number of players"
               keyboardType="phone-pad"
               maxLength={2}
               placeholderTextColor="#bbbbbb"
@@ -77,13 +77,7 @@ export default class GameConfigurationScreen extends React.Component {
               textContentType="none"
             />
           </View>
-            <CheckBox
-              title='Choose players names'
-              onPress={() => {this.setState(prevState => ({ownNames:!prevState.ownNames}));}}
-              checked={this.state.ownNames ? true : false}
-            />
-          </View>
-          <View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <View style={{flex: 1, flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
             <CheckBox
               title='DoubleIn'
               onPress={() => {this.setState(prevState => ({doubleIn:!prevState.doubleIn}));}}
@@ -95,7 +89,7 @@ export default class GameConfigurationScreen extends React.Component {
               checked={this.state.tripleIn ? true : false}
             />
           </View>
-          <View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+          <View style={{ flex: 1, flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
             <CheckBox
               title='DoubleOut'
               onPress={() => {this.setState(prevState => ({doubleOut:!prevState.doubleOut}));}}
@@ -107,15 +101,24 @@ export default class GameConfigurationScreen extends React.Component {
               checked={this.state.tripleOut ? true : false}
             />
           </View>
-          <View style={{ flexDirection:'row', alignItems: 'center', justifyContent: 'flex-start' }}>
+        <View style={{ flex: 1 }}>
             <CheckBox
               title='Killer'
               onPress={() => {this.setState(prevState => ({killer:!prevState.killer}));}}
               checked={this.state.killer ? true : false}
             />
           </View>
-          <View style={{ alignItems: 'center', justifyContent: 'flex-end', marginBottom:40 }}>
-            <MyButton title="Start"
+        <View style={{ flex: 1 }}>
+            <CheckBox
+              title='Choose players names'
+              onPress={() => {this.setState(prevState => ({ownNames:!prevState.ownNames}));}}
+              checked={this.state.ownNames ? true : false}
+            />
+          </View>
+        <View style={{ flex: 1 }}>
+            <MyButton
+              title="Start"
+              style={{position: 'absolute', bottom:10}}
               disabled={this.state.nbPlayers == '' || (this.state.game == 'custom' && this.state.customGame == '')}
               onPress={() => this.props.navigation.navigate('Game', {
                 nbPlayers:this.state.nbPlayers,
@@ -129,7 +132,6 @@ export default class GameConfigurationScreen extends React.Component {
               })}
             />
           </View>
-        </View>
       </View>
     );
   }
