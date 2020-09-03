@@ -47,7 +47,7 @@ export default class GameConfigurationScreen extends React.Component {
           </View>
       <View style={{flex: 1, opacity: this.state.game != 'custom' ? 0 : 1}}>
             <Input
-              inputStyle={{color:'white'}}
+              inputStyle={{color:'white', height: 10}}
               disabled={this.state.game != 'custom'}
               textAlign={'center'}
               value={this.state.customGame.toString()}
@@ -63,7 +63,7 @@ export default class GameConfigurationScreen extends React.Component {
       </View>
           <View style={{ flex: 1, width:170 }}>
             <Input
-              inputStyle={{color:'white'}}
+              inputStyle={{color:'white', height: 10}}
               textAlign={'center'}
               value={this.state.nbPlayers.toString()}
               onChangeText={(text) => {this.setState({nbPlayers: text && text.length && text.match(/^-{0,1}\d+$/) && parseInt(text) != 0 ? parseInt(text) : ''});
