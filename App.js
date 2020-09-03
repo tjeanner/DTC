@@ -10,6 +10,11 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 import HomeScreen from './screens/HomeScreen';
 import GameConfigurationScreen from './screens/GameConfigurationScreen';
@@ -45,6 +50,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								}
 							}}
 						/>
@@ -54,6 +60,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								}
 							}}
 						/>
@@ -63,6 +70,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								},
 								headerLeft: (null)
 							}}
@@ -73,6 +81,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								}
 							}}
 						/>
@@ -82,6 +91,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								},
 								headerLeft: (null)
 							}}
@@ -92,6 +102,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								}
 							}}
 						/>
@@ -101,6 +112,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								},
 								headerLeft: (null)
 							}}
@@ -111,6 +123,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								},
 								headerLeft: (null)
 							}}
@@ -121,6 +134,7 @@ class App extends React.Component {
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
 								},
 								headerLeft: (null)
 							}}
