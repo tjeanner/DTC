@@ -103,9 +103,7 @@ class PointSelector extends React.Component {
           />
       </View>
         </View>
-        <View style={{marginTop:60, marginBottom:40}}>
           <MyButton title="Proceed" onPress={() => {this.createData();Vibration.vibrate(100);}}/>
-        </View>
       </View>
     );
   }
@@ -345,7 +343,7 @@ export default class GameScreen extends React.Component {
         </View>
       </View>
       <PointSelector manageScoresCallBack={this.manageScoresCallBack} />
-      <View style={{ flex: 0.1, alignItems: 'center', justifyContent: 'flex-end', marginBottom:40 }}>
+      <View style={{alignItems: 'center' }}>
         <MyButton title="Next" 
           disabled={!this.state.hasProceed}
           onPress={() => {
