@@ -47,6 +47,7 @@ export default class GameConfigurationScreen extends React.Component {
           </View>
       <View style={{flex: 1, opacity: this.state.game != 'custom' ? 0 : 1}}>
             <Input
+              selectTextOnFocus={true}
               inputStyle={{color:'white', height: 10}}
               disabled={this.state.game != 'custom'}
               textAlign={'center'}
@@ -63,6 +64,7 @@ export default class GameConfigurationScreen extends React.Component {
       </View>
           <View style={{ flex: 1, width:170 }}>
             <Input
+              selectTextOnFocus={true}
               inputStyle={{color:'white', height: 10}}
               textAlign={'center'}
               value={this.state.nbPlayers.toString()}

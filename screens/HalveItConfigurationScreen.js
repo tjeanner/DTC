@@ -26,6 +26,7 @@ export default class GameConfigurationScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor:'#1d3557', justifyContent: 'space-around', alignItems: 'center'}}>
             <Input
+              selectTextOnFocus={true}
               inputStyle={{color:'white'}}
               textAlign={'center'}
               value={this.state.nbPlayers.toString()}
