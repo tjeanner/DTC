@@ -125,7 +125,6 @@ class App extends React.Component {
 									backgroundColor: '#a8dadc',
 									height: responsiveHeight(5)
 								},
-								headerLeft: (null)
 							}}
 						/>
 						<Stack.Screen
