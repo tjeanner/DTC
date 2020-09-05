@@ -145,9 +145,7 @@ class PointSelector extends React.Component {
           />
       </View>
         </View>
-        <View style={{marginTop:60, marginBottom:40}}>
           <MyButton title="Proceed" onPress={() => {this.createData();Vibration.vibrate(100);}}/>
-        </View>
       </View>
     );
   }
@@ -376,16 +374,14 @@ export default class HalveItScreen extends React.Component {
           <Text style={{fontSize:24}}>Turn: {((this.state.turn + 1).toString() + '\n')}</Text>
           <Text style={{fontSize:24}}>Target: {((targets[this.state.turn]).toString() + '\n')}</Text>
           <CurrentPlayer currentPlayer={this.state.currentPlayer} data={this.state.data}/>
-          <View style={{ flex: 1 }}>
-            <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score.toString()});}}/>
-          </View>
         </View>
         <View style={{ flex: 1, flexDirection:'column', alignItems: 'flex-end', justifyContent: 'space-between'}}>
           <Scores data={this.state.data}/>
+            <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score.toString()});}}/>
         </View>
       </View>
         <PointSelector manageScoresCallBack={this.manageScoresCallBack} manageSpecialScoresCallBack={this.manageSpecialScoresCallBack} target={targets[this.state.turn]}/>
-      <View style={{ flex: 0.1, alignItems: 'center', justifyContent: 'flex-end', marginBottom:40 }}>
+      <View style={{alignItems: 'center'}}>
         <MyButton title="Next" 
           disabled={!this.state.hasProceed}
           onPress={() => {
