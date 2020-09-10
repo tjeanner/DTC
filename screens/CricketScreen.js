@@ -166,12 +166,10 @@ export default class GameScreen extends React.Component {
   }
 
   manageData(){
-    //let data = sortScoresDes(this.state.data);
     this.setState(prevState=>({
       currentPlayer:prevState.currentPlayer == this.props.route.params.nbPlayers - 1 ? 0 : prevState.currentPlayer + 1,
       turn: prevState.currentPlayer == this.props.route.params.nbPlayers - 1 ? prevState.turn + 1 : prevState.turn,
       hasProceed: false,
-      //data: data,
       currentDart: 0,
     }));
   }
@@ -230,14 +228,12 @@ export default class GameScreen extends React.Component {
         }
       }
     }
-    //data = sortScoresDes(data);
     this.setState(prevState => ({data:data, currentDart: prevState.currentDart == 2 ? 0 : prevState.currentDart + 1, hasProceed: prevState.currentDart == 2 ? true : false}));
   }
 
   changeOneScore(){
     let data = this.state.data;
     data.find(x => x.player == this.state.currentPlayer).score = this.state.editedScore;
-    data = sortScoresDes(data);
     this.setState({editingScore: false, data:data});
   }
 
@@ -270,7 +266,7 @@ export default class GameScreen extends React.Component {
               autoFocus={true}
               textAlign={'center'}
               value={this.state.editedScore.toString()}
-              onChangeText={(text) => {this.setState({editedScore: text && text.length && text.match(/^-{0,1}\d+$/) && parseInt(text) != 0 ? parseInt(text) : ''});
+              onChangeText={(text) => {this.setState({editedScore: text && text.length && text.match(/^-{0,1}\d+$/) ? text : ''});
               }}
               label="Score"
               keyboardType="phone-pad"
