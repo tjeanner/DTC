@@ -6,6 +6,12 @@ import {
 } from 'react-native';
 
 import { Icon } from 'react-native-elements';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
+
 const values = ['', 'minus', 'times', 'times-circle', 'circle'];
 
 export default class Scores extends React.Component {
@@ -36,8 +42,8 @@ export default class Scores extends React.Component {
 	render(){
 		return(
 			<View style={{ flex: 1}}>
-        <View style={{ flex: 1, flexDirection:'row', width: 300, justifyContent: 'flex-start', alignItmes: 'space-around', marginBottom:15, left:-5}}>
-							<View style={{flex: 4, justifyContent:'center', alignItems:'center'}}>
+        <View style={{ flex: 1, flexDirection:'row', width: responsiveWidth(100), justifyContent: 'flex-start', alignItmes: 'space-around', marginBottom:15, left:-5}}>
+							<View style={{flex: 2.8, justifyContent:'center', alignItems:'center'}}>
 								<Text>Numbers :</Text>
 							</View>
 							<View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
@@ -61,12 +67,15 @@ export default class Scores extends React.Component {
 							<View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
 								<Text>{this.props.numbers[6].value}</Text>
 							</View>
+							<View style={{flex: 2.5, justifyContent:'center', alignItems:'center'}}>
+								<Text>Points</Text>
+							</View>
 			</View>
         <View style={{ flex: 10}}>
 				<FlatList data={this.props.data}
 					renderItem={({item, index}) =>
 						<View style={{flex: 1, height:35, flexDirection:'row', justifyContent: 'flex-start', alignItmes: 'space-around'}}>
-							<View style={{flex: 4, justifyContent:'center', alignItems:'center', borderWidth:2}}>
+							<View style={{flex: 3, justifyContent:'center', alignItems:'center', borderWidth:2}}>
 								<Text>{this.props.data.find(e => e.player == index).name}</Text>
 							</View>
 							<View style={{flex: 1, justifyContent:'center', alignItems:'center', borderWidth:2}}>
@@ -89,6 +98,9 @@ export default class Scores extends React.Component {
 							</View>
 							<View style={{flex: 1, justifyContent:'center', alignItems:'center', borderWidth:2}}>
 								{this.getIcon(item.checkmarks[6])}
+							</View>
+							<View style={{flex: 3, justifyContent:'center', alignItems:'center', borderWidth:2}}>
+								<Text>{this.props.data.find(e => e.player == index).score}</Text>
 							</View>
 						</View>
 					}
