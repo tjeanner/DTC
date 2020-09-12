@@ -34,8 +34,7 @@ class PointSelector extends React.Component {
 
   render(){
   return(
-    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
-    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
+    <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-start' }}>
       <Picker
         selectedValue={this.state.dart}
         style={{ height: 50, width: 150, marginTop:100 }}
@@ -56,10 +55,7 @@ class PointSelector extends React.Component {
               onPress={() => {this.setState(prevState => ({triple:!prevState.triple && this.state.dart == 25 ? false :  !prevState.triple, double:!prevState.triple ? false : !prevState.triple}));}}
               checked={this.state.triple}
             />
-    </View>
-    <View style={{flex: 10, }}>
       <MyButton title="Proceed" onPress={() => {this.createData();}} disabled={this.props.disabled}/>
-    </View>
     </View>
   );
 }
@@ -282,7 +278,6 @@ export default class GameScreen extends React.Component {
     }
     return(
       <View style={{flex: 1, backgroundColor:'#457b9d'}}>
-      <View style={{flex: 4, height:500,flexDirection:'column', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <View style={{flex: 7, height:500, marginTop:30,  flexDirection:'column', alignItems: 'flex-end', justifyContent: 'space-between'}}>
           <CricketScores numbers={this.state.numbers} data={this.state.data}/>
         </View>
@@ -292,13 +287,12 @@ export default class GameScreen extends React.Component {
           <View style={{ flex: 2 }}>
             <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score.toString()});}}/>
           </View>
-      </View>
       <View style={{flex: 2, alignItems: 'center', justifyContent: 'flex-end'}}>
       <PointSelector manageScoresCallBack={this.manageScoresCallBack} disabled={this.state.hasProceed && this.state.currentDart == 0}
         nums={this.state.numbers}
       />
       </View>
-      <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
+      <View style={{alignItems: 'center'}}>
         <MyButton title="Next" 
           disabled={!this.state.hasProceed}
           onPress={() => {
