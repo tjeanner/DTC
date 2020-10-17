@@ -19,7 +19,6 @@ import Scores from '../components/Scores';
 import { sortScoresDes } from '../helpers/PointsManagers';
 
 const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25];
-const targets = ['12', '13', '14', 'Double', '15', '16', '17', 'Triple', '18', '19', '20', 'Bull', ];
 
 class PointSelector extends React.Component {
   constructor(props){
@@ -258,7 +257,7 @@ export default class HalveItScreen extends React.Component {
   manageData(){
     let data = this.state.data;
     data = sortScoresDes(data);
-    if(this.state.turn == 11 && this.state.currentPlayer == this.props.route.params.nbPlayers - 1){
+    if(this.state.turn == this.props.route.params.nbPoints && this.state.currentPlayer == this.props.route.params.nbPlayers - 1){
       this.setState(prevState=>({
         hasProceed: false,
         data: data,
@@ -370,7 +369,6 @@ export default class HalveItScreen extends React.Component {
       <View style={{ flex: 1, flexDirection:'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
         <View style={{ flex: 1, flexDirection:'column', alignItems: 'flex-start', justifyContent: 'space-between' }}>
           <Text style={{fontSize:24}}>Turn: {((this.state.turn + 1).toString() + '\n')}</Text>
-          <Text style={{fontSize:24}}>Target: {((targets[this.state.turn]).toString() + '\n')}</Text>
           <CurrentPlayer currentPlayer={this.state.currentPlayer} data={this.state.data}/>
         </View>
         <View style={{ flex: 1, flexDirection:'column', alignItems: 'flex-end', justifyContent: 'space-between'}}>

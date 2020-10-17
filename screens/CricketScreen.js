@@ -15,7 +15,7 @@ import MyButton from '../components/MyButton';
 import NameChooser from '../components/NameChooser';
 import CurrentPlayer from '../components/CurrentPlayer';
 import CricketScores from '../components/CricketScores';
-import { sortScoresDes } from '../helpers/PointsManagers';
+import { sortScoresDes, sortScoresAsc } from '../helpers/PointsManagers';
 
 class PointSelector extends React.Component {
   constructor(props){
@@ -261,8 +261,8 @@ export default class GameScreen extends React.Component {
             <Input
               autoFocus={true}
               textAlign={'center'}
-              value={this.state.editedScore.toString()}
-              onChangeText={(text) => {this.setState({editedScore: text && text.length && text.match(/^-{0,1}\d+$/) ? text : ''});
+              value={this.state.editedScore}
+              onChangeText={(text) => {this.setState({editedScore: text && text.length && text.match(/^-{0,1}\d+$/) ? parseInt(text) : 0});
               }}
               label="Score"
               keyboardType="phone-pad"
@@ -285,7 +285,7 @@ export default class GameScreen extends React.Component {
           <Text style={{fontSize:24}}>Dart : {((this.state.currentDart + 1).toString())}</Text>
           <CurrentPlayer currentDart={this.state.currentDart} currentPlayer={this.state.currentPlayer} data={this.state.data}/>
           <View style={{ flex: 2 }}>
-            <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score.toString()});}}/>
+            <MyButton title="Edit current player's score" onPress={() => {this.setState({editingScore: true, editedScore: this.state.data.find(x => x.player == this.state.currentPlayer).score});}}/>
           </View>
       <View style={{flex: 2, alignItems: 'center', justifyContent: 'flex-end'}}>
       <PointSelector manageScoresCallBack={this.manageScoresCallBack} disabled={this.state.hasProceed && this.state.currentDart == 0}

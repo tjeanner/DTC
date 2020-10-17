@@ -25,6 +25,8 @@ import ShangaiConfigurationScreen from './screens/ShangaiConfigurationScreen';
 import ShangaiScreen from './screens/ShangaiScreen';
 import CricketConfigurationScreen from './screens/CricketConfigurationScreen';
 import CricketScreen from './screens/CricketScreen';
+import ShoutOutConfigurationScreen from './screens/ShoutOutConfigurationScreen';
+import ShoutOutScreen from './screens/ShoutOutScreen';
 //import ScoresScreen from './screens/ScoresScreen';
 
 const Stack = createStackNavigator();
@@ -130,6 +132,27 @@ class App extends React.Component {
 						<Stack.Screen
 							name="Cricket"
 							component={CricketScreen}
+							options={{
+								headerStyle: {
+									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
+								},
+								headerLeft: (null)
+							}}
+						/>
+						<Stack.Screen
+							name="Shout Out Configuration"
+							component={ShoutOutConfigurationScreen}
+							options={{
+								headerStyle: {
+									backgroundColor: '#a8dadc',
+									height: responsiveHeight(5)
+								},
+							}}
+						/>
+						<Stack.Screen
+							name="Shout Out"
+							component={ShoutOutScreen}
 							options={{
 								headerStyle: {
 									backgroundColor: '#a8dadc',

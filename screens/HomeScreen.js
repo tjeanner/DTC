@@ -21,6 +21,9 @@ function HomeScreen({navigation}) {
 			<MyButton title="New Cricket"
 				onPress={() => navigation.navigate('Cricket Configuration')}
 			/>
+			<MyButton title="New Shout Out"
+				onPress={() => navigation.navigate('Shout Out Configuration')}
+			/>
 			{/*<MyButton title="Scores"
 								onPress={() => navigation.navigate('Scores')}
 							/>*/}
